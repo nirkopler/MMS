@@ -1,4 +1,5 @@
 const movies = require('../Models/moviesModel');
+const subscriptions = require('../Models/subscriptionsModel');
 
 // GET All
 exports.getAllMovies = () => {
@@ -40,8 +41,12 @@ exports.putMovie = (id, movie) => {
 // TODO:: add delete subscription
 exports.deleteMovie = (id) => {
     return new Promise((resolve, reject) => {
-        movies.findByIdAndDelete(id, (err) => {
-            (err) ? reject(err) : resolve('DELETE Completed')
+        movies.findByIdAndDelete(id, (err, movie) => {
+            if(err) {reject(err)} else {
+                subscriptions.deleteMany({ movie_id: movie._id }, (error) => {
+                    (error) ? reject(error) : resolve('DELETE Completed');
+                })
+            }
         })
     })
 }

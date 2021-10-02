@@ -40,8 +40,12 @@ exports.putMember = (id, member) => {
 // TODO:: add delete subscription
 exports.deleteMember = (id) => {
     return new Promise((resolve, reject) => {
-        members.findByIdAndDelete(id, (err) => {
-            (err) ? reject(err) : resolve('DELETE Completed')
+        members.findByIdAndDelete(id, (err, member) => {
+            if(err) {reject(err)} else {
+                subscriptions.deleteMany({ member_id: member._id }, (error) => {
+                    (error) ? reject(error) : resolve('DELETE Completed');
+                })
+            }
         })
     })
 }
