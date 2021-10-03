@@ -1,19 +1,22 @@
-import React from 'react'
+import React from 'react';
 import {
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
+import Login from './components/login/Login';
+import Main from './components/main/Main';
+
+
 
 function App() {
   return (
     <div>
       <Switch>
-        <Route path='/'>
-          {/* component */}
+        <Route exact path='/'>
+          <Login />
         </Route>
         <Route path='/main'>
-          {/* component */}
+          <Main />
         </Route>
       </Switch>
     </div>

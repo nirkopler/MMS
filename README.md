@@ -1,6 +1,10 @@
 # MMS - Movie Management System
 
 ### Progress 💪
+#### 03/10/21 - add client base
+* add base files
+* add login
+
 #### 02/10/21 - create base app
 * create base client
 * create server base
@@ -9,3 +13,4 @@
 
 ### TODO 🔥
 * create client
+* add globalstate fro login & displayed name
