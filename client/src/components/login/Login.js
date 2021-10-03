@@ -17,7 +17,7 @@ const Login = () => {
             if(loginAttempt.success) {
                 // TODO:: add globa state validation
                 // go to main
-                history.push('/main');
+                history.push('/main/movies');
             } else {
                 setLogErrorMessage(loginAttempt.message);
             }

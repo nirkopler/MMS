@@ -4,6 +4,8 @@
 #### 03/10/21 - add client base
 * add base files
 * add login
+* add mainMovies
+* add mainSubscriptions
 
 #### 02/10/21 - create base app
 * create base client
