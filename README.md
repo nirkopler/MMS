@@ -1,6 +1,13 @@
 # MMS - Movie Management System
 
 ### Progress 💪
+#### 06/10/21
+* add add movie
+* add all movies 
+* add all members
+* add add member
+* add logout func
+
 #### 03/10/21 - add client base
 * add base files
 * add login
@@ -14,5 +21,6 @@
 * finish server
 
 ### TODO 🔥
-* create client
+* add edit/delete movie member
+* add subscribe to movie in each member comp
 * add globalstate fro login & displayed name

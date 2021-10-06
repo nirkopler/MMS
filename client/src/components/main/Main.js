@@ -1,13 +1,13 @@
 import styles from'./main.module.css'
 import React from "react";
 import { Switch, Route, Link } from 'react-router-dom';
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import MoviesMain from '../movies/moviesMain/MoviesMain';
-import SubscriptionsMain from '../subscriptions/SubscriptionsMain';
+import SubscriptionsMain from '../subscriptions/subscriptionsMain/SubscriptionsMain';
 
 const Main = () => {
     const { path, url } = useRouteMatch();
-
+    const history = useHistory();
 
     return (
         <div className={styles.container}>
@@ -19,7 +19,7 @@ const Main = () => {
                 <Link to={`${url}/subscriptions`} className={styles.navbar_item}>
                     <span>Subscriptions</span>
                 </Link>
-                <span className={styles.navbar_item}>Logout</span>
+                <span className={styles.navbar_item} onClick={ () => { history.push('/') }} >Logout</span>
             </div>
 
             <div className={styles.switch_container}>

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const AddMovie = () => {
     const [addMovieData, setAddMovieData] = useState({
-        name: null,
+        full_name: null,
         geners: null,
         year_premiered: null,
         image: null
@@ -24,7 +24,7 @@ const AddMovie = () => {
             }}>
                 
                 <span>Name: </span>
-                <input type='text' placeholder='name' onChange={(e) => setAddMovieData({...addMovieData, name: e.target.value})} />
+                <input type='text' placeholder='name' onChange={(e) => setAddMovieData({...addMovieData, full_name: e.target.value})} />
 
                 <span>Geners: </span>
                 <input type='text' placeholder='geners' onChange={(e) => setAddMovieData({...addMovieData, geners: e.target.value.split(',')})} />
