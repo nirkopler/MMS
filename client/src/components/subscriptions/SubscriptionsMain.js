@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const SubscriptionsMain = () => {
     return (
-        <div className='container'>
+        <div>
             <h1>Subscriptions Main Page</h1>
         </div>
     )

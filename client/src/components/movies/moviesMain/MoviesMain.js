@@ -1,34 +1,35 @@
 import './moviesMain.css'
-import React, { useState } from "react";
-import axios from 'axios';
-
-const SubscriptionsBox = ({ movieId }) => {
-    // get subscriptions data by movie
-
-    return (
-        <div>
-            {/* user name + link */}
-            {/* date */}
-        </div>
-    )
-} 
-
-const MovieBox = ({ movie }) => {
-
-    return (
-        <div className='movie-box-container'>
-            <h4>{movie.name}</h4>
-            <h4>{movie.year_premierd}</h4>
-            <h4>{movie.geners}</h4>
-            <img src={movie.image} alt={movie._id} />
-        </div>
-    )
-}
+import React, { useEffect } from "react";
+import { Switch, Route, Link} from 'react-router-dom'
+import { useRouteMatch, useHistory } from 'react-router-dom';
+import AllMovies from '../allMovies/AllMovies';
+import AddMovie from '../AddMovie';
 
 const MoviesMain = () => {
+    const { path, url} = useRouteMatch();
+
     return (
-        <div className='main-movies-conatiner'>
+        <div className='movies-main-container'>
             <h1>Movies Main Page</h1>
+            <div>
+                <Link to={`${url}`}>
+                    All Movies
+                </Link>
+                <Link to={`${url}/addMovie`}>
+                    Add Movie
+                </Link>
+            </div>
+
+            <div className='movies-main-switch-container'>
+                <Switch>
+                    <Route exact path={`${path}`}>
+                        <AllMovies />
+                    </Route>
+                    <Route path={`${path}/addMovie`}>
+                        <AddMovie />
+                    </Route>
+                </Switch>
+            </div>
         </div>
     )
 }

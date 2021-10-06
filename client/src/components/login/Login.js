@@ -1,4 +1,4 @@
-import './login.css'
+import styles from './login.module.css'
 import React, { useState } from "react";
 import axios from 'axios';
 import { useHistory } from 'react-router';
@@ -28,9 +28,9 @@ const Login = () => {
     }
 
     return (
-        <div className='container'>
+        <div className={styles.container}>
             <h1>Login Page</h1>
-            <form onSubmit={handleSubmit} className='login-form'>
+            <form onSubmit={handleSubmit} className={styles.login_form}>
                 
                 <span>username: </span>
                 <input type='text' placeholder='username' onChange={(e) => setFormData({...formData, username: e.target.value})} />
@@ -38,9 +38,9 @@ const Login = () => {
                 <span>password: </span>
                 <input type='text' placeholder='password' onChange={(e) => setFormData({...formData, password: e.target.value})} />
 
-                <input type='submit' value='login' className='login-btn' />
+                <input type='submit' value='login' className={styles.login_btn} />
             </form>
-            { logErrorMessage.length > 0 && <p className='login-error'>{logErrorMessage}</p>}
+            { logErrorMessage.length > 0 && <p className={styles.login_error}>{logErrorMessage}</p>}
         </div>
     )
 }
