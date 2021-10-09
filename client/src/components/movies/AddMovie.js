@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import useGlobalState from '../GlobalState';
 
 const AddMovie = () => {
+    const [moviesData, setMoviesData] = useGlobalState('moviesData')
     const [addMovieData, setAddMovieData] = useState({
-        full_name: null,
+        name: null,
         geners: null,
         year_premiered: null,
         image: null
@@ -11,8 +13,15 @@ const AddMovie = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        await axios.post('http://localhost:8000/api/movies', addMovieData)
-        console.log( `movie ${addMovieData.name} added!`)
+        try {
+            const addedMovie = await axios.post('http://localhost:8000/api/movies', addMovieData)
+            console.log(addedMovie)
+            setMoviesData([...moviesData, addedMovie])
+            console.log( `movie ${addMovieData.name} added!`)
+        } catch(err) {
+            alert('server error try later')
+            console.error(err);
+        }
     }
 
     return (
@@ -24,7 +33,7 @@ const AddMovie = () => {
             }}>
                 
                 <span>Name: </span>
-                <input type='text' placeholder='name' onChange={(e) => setAddMovieData({...addMovieData, full_name: e.target.value})} />
+                <input type='text' placeholder='name' onChange={(e) => setAddMovieData({...addMovieData, name: e.target.value})} />
 
                 <span>Geners: </span>
                 <input type='text' placeholder='geners' onChange={(e) => setAddMovieData({...addMovieData, geners: e.target.value.split(',')})} />

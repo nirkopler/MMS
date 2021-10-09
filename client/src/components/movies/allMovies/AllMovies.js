@@ -1,6 +1,7 @@
 import './allMovies.css'
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import useGlobalState from '../../GlobalState'
 
 const MovieBox = ({ movie, subscriptions }) => {
 
@@ -29,8 +30,8 @@ const MovieBox = ({ movie, subscriptions }) => {
 }
 
 const AllMovies = () => {
-    const [moviesData, setMoviesData] = useState([])
-    const [subscriptionsData, setSubscriptionsData] = useState([])
+    const [moviesData, setMoviesData] = useGlobalState('moviesData')
+    const [subscriptionsData, setSubscriptionsData] = useGlobalState('subscriptionsData')
 
     useEffect(() => {
         const getAllMoviesData = async() => {

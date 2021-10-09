@@ -1,6 +1,12 @@
 # MMS - Movie Management System
 
 ### Progress 💪
+#### 09/10/21
+* update mechanics to global state
+
+#### 08/10/21 - add & configured useGlobalState
+* add use global state
+
 #### 06/10/21
 * add add movie
 * add all movies 
@@ -23,4 +29,4 @@
 ### TODO 🔥
 * add edit/delete movie member
 * add subscribe to movie in each member comp
-* add globalstate fro login & displayed name
+* clean useGlobalState tests 

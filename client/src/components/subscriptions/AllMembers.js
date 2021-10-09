@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import useGlobalState from '../GlobalState'
 
-const MemberBox = ({ movie: member, subscriptions }) => {
+const SubscriptionBox = ({}) => {
+
+}
+
+const MemberBox = ({ member, subscriptions }) => {
+    const [showAddSubscriptions, setShowAddSubscriptions] = useState(false);
+    const [subscribeToMovieData, setSubscribeToMovieData] = useState({
+        movie_id: null,
+        member_id: null,
+        date: null
+    })
 
     const subscriptionsList = (
-        <ul>
+        <ul style={{border:'1px solid grey'}}>
             {subscriptions.map(s => {
                 return <li>{s.movie_id} {s.date}</li>
             })}
@@ -17,9 +28,20 @@ const MemberBox = ({ movie: member, subscriptions }) => {
             padding: '5px',
             border: '1px solid blue'
         }}>
+
+            <input type='button' value='add subscription' onClick={() => {setShowAddSubscriptions(!showAddSubscriptions); }} />
             <h4>{member.full_name}</h4>
             <h4>{member.email}</h4>
             <h4>{member.city}</h4>
+            {showAddSubscriptions && <div>
+                    <form>
+
+                    <span>Image: </span>
+                    <input type='text' placeholder='image' onChange={(e) => setSubscribeToMovieData({...subscribeToMovieData, movie_id: e.target.value})} />
+
+                    <input type='submit' value='subscribe' />
+                    </form>
+                </div>}
             {subscriptionsList}
         </div>
     )
@@ -51,7 +73,7 @@ const AllMembers = () => {
                 {
                     membersData.map( member => {
                         const subData = subscriptionsData.filter(s => s.member_id = member._id);
-                        return <MemberBox movie={member} subscriptions={subData} key={member._id} />
+                        return <MemberBox member={member} subscriptions={subData} key={member._id} />
                     })
                 }
             </div>
