@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import useGlobalState from '../GlobalState'
 
-const SubscriptionBox = ({}) => {
-
-}
 
 const MemberBox = ({ member, subscriptions }) => {
     const [showAddSubscriptions, setShowAddSubscriptions] = useState(false);
@@ -19,7 +16,7 @@ const MemberBox = ({ member, subscriptions }) => {
     const subscriptionsList = (
         <ul style={{border:'1px solid grey'}}>
             {subscriptions.map(s => {
-                return <li>{moviesData.find(movie => movie._id === s.movie_id).name} - {s.date}</li>
+                return <li>{moviesData.find(movie => movie._id === s.movie_id)?.name} - {s.date}</li>
             })}
         </ul>
     )

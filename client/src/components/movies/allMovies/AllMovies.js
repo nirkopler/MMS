@@ -7,6 +7,7 @@ import { useHistory } from 'react-router';
 const MovieBox = ({ movie, subscriptions }) => {
     const history = useHistory();
     const [membersData, setMembersData] = useGlobalState('membersData');
+    const [moviesData, setMoviesData] = useGlobalState('moviesData');
     const subscriptionsList = (
         <ul>
             {subscriptions.map(s => {
@@ -17,6 +18,17 @@ const MovieBox = ({ movie, subscriptions }) => {
 
     const handleEditMovieBtn = (movieId) => {
         history.push(`/main/movies/editMovie/${movieId}`);
+    }
+
+    const handleDeleteMovieBtn = async(movieId) => {
+        try {
+            await axios.delete(`http://localhost:8000/api/movies/${movieId}`)
+            setMoviesData(moviesData.filter((movie) => movie._id !== movieId ))
+            console.log( `movie ${movieId} deleted!`)
+        } catch(err) {
+            alert('server error try later')
+            console.error(err);
+        }
     }
 
     return (
@@ -30,6 +42,7 @@ const MovieBox = ({ movie, subscriptions }) => {
             <img src={movie.image} alt={movie._id} />
             {subscriptionsList}
             <input type='button' value='Edit' onClick={() => handleEditMovieBtn(movie._id)} />
+            <input type='button' value='Delete' onClick={() => handleDeleteMovieBtn(movie._id)} />
         </div>
     )
 }
