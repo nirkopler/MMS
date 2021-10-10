@@ -31,7 +31,7 @@ const MovieBox = ({ movie, subscriptions }) => {
 
 const AllMovies = () => {
     const [moviesData, setMoviesData] = useGlobalState('moviesData')
-    const [subscriptionsData, setSubscriptionsData] = useGlobalState('subscriptionsData')
+    const [subscriptionsData, setSubscriptionsData] = useGlobalState('subscriptionsData');
 
     useEffect(() => {
         const getAllMoviesData = async() => {
@@ -54,7 +54,7 @@ const AllMovies = () => {
             <div className='movies-main-switch-container'>
                 {
                     moviesData.map( movie => {
-                        const subData = subscriptionsData.filter(s => s.movie_id = movie._id);
+                        const subData = subscriptionsData.filter(s => s.movie_id === movie._id);
                         return <MovieBox movie={movie} subscriptions={subData} key={movie._id} />
                     })
                 }

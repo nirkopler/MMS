@@ -16,7 +16,7 @@ const AddMovie = () => {
         try {
             const addedMovie = await axios.post('http://localhost:8000/api/movies', addMovieData)
             console.log(addedMovie)
-            setMoviesData([...moviesData, addedMovie])
+            setMoviesData([...moviesData, addedMovie.data])
             console.log( `movie ${addMovieData.name} added!`)
         } catch(err) {
             alert('server error try later')

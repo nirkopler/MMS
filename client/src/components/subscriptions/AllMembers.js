@@ -10,9 +10,11 @@ const MemberBox = ({ member, subscriptions }) => {
     const [showAddSubscriptions, setShowAddSubscriptions] = useState(false);
     const [subscribeToMovieData, setSubscribeToMovieData] = useState({
         movie_id: null,
-        member_id: null,
+        member_id: member._id,
         date: null
     })
+    const [moviesData, setMoviesData] = useGlobalState('moviesData');
+    const [subscriptionsData, setSubscriptionsData] = useGlobalState('subscriptionsData');
 
     const subscriptionsList = (
         <ul style={{border:'1px solid grey'}}>
@@ -21,6 +23,19 @@ const MemberBox = ({ member, subscriptions }) => {
             })}
         </ul>
     )
+
+    const handleSubmitSubscribe = async(e) => {
+        e.preventDefault();
+        try {
+            const addedSub = await axios.post('http://localhost:8000/api/subscriptions', subscribeToMovieData)
+            console.log(addedSub)
+            setSubscriptionsData([...subscriptionsData, addedSub.data])
+            console.log( `${addedSub.data.member_id} subscribe to movie ${addedSub.data.movie_id}`);
+        } catch(err) {
+            alert('server error try later')
+            console.error(err);
+        }
+    }
 
     return (
         <div style={{
@@ -34,12 +49,13 @@ const MemberBox = ({ member, subscriptions }) => {
             <h4>{member.email}</h4>
             <h4>{member.city}</h4>
             {showAddSubscriptions && <div>
-                    <form>
-
-                    <span>Image: </span>
-                    <input type='text' placeholder='image' onChange={(e) => setSubscribeToMovieData({...subscribeToMovieData, movie_id: e.target.value})} />
-
-                    <input type='submit' value='subscribe' />
+                    <form onSubmit={(e) => handleSubmitSubscribe(e)}>
+                        <span>Movie: </span>
+                        <select onChange={(e) => setSubscribeToMovieData({...subscribeToMovieData, movie_id: e.target.value})}>
+                            {moviesData.map((movie) => {return <option key={`sel-mov-${movie._id}`} value={movie._id}>{movie.name}</option>})}
+                        </select>
+                        <input type='date' onChange={(e) => setSubscribeToMovieData({...subscribeToMovieData, date: e.target.value})} />
+                        <input type='submit' value='subscribe' />
                     </form>
                 </div>}
             {subscriptionsList}
@@ -48,8 +64,8 @@ const MemberBox = ({ member, subscriptions }) => {
 }
 
 const AllMembers = () => {
-    const [membersData, setMembersData] = useState([])
-    const [subscriptionsData, setSubscriptionsData] = useState([])
+    const [membersData, setMembersData] = useGlobalState('membersData')
+    const [subscriptionsData, setSubscriptionsData] = useGlobalState('subscriptionsData')
 
     useEffect(() => {
         const getAllMembersData = async() => {
@@ -72,7 +88,7 @@ const AllMembers = () => {
             <div className='movies-main-switch-container'>
                 {
                     membersData.map( member => {
-                        const subData = subscriptionsData.filter(s => s.member_id = member._id);
+                        const subData = subscriptionsData.filter(s => s.member_id === member._id);
                         return <MemberBox member={member} subscriptions={subData} key={member._id} />
                     })
                 }
