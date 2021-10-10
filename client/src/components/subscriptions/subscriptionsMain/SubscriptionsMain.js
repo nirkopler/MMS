@@ -3,6 +3,7 @@ import { Switch, Route, Link} from 'react-router-dom'
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import AddMember from "../AddMember";
 import AllMembers from "../AllMembers";
+import EditMember from "../EditMember";
 
 const SubscriptionsMain = () => {
     const { path, url} = useRouteMatch();
@@ -26,6 +27,9 @@ const SubscriptionsMain = () => {
                     </Route>
                     <Route path={`${path}/addMember`}>
                         <AddMember />
+                    </Route>
+                    <Route path={`${path}/editMember/:memberId`}>
+                        <EditMember />
                     </Route>
                 </Switch>
             </div>

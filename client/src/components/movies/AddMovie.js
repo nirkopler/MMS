@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import useGlobalState from '../GlobalState';
+import {useHistory} from 'react-router';
 
 const AddMovie = () => {
+    const history = useHistory();
     const [moviesData, setMoviesData] = useGlobalState('moviesData')
     const [addMovieData, setAddMovieData] = useState({
         name: null,
@@ -18,6 +20,7 @@ const AddMovie = () => {
             console.log(addedMovie)
             setMoviesData([...moviesData, addedMovie.data])
             console.log( `movie ${addMovieData.name} added!`)
+            history.push('/main/movies');
         } catch(err) {
             alert('server error try later')
             console.error(err);

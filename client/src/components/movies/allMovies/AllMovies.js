@@ -75,7 +75,7 @@ const AllMovies = () => {
 
     return (
         <div className='movies-main-container'>
-            <h1>Movies Main Page</h1>
+            <h1>All Movies Page</h1>
             <div className='movies-main-switch-container'>
                 {
                     moviesData.map( movie => {

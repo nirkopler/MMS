@@ -3,6 +3,9 @@
 ### Progress 💪
 #### 10/10/21
 * finish add and view app func with globalState
+* add edit movie / member
+* add delete movie / member
+* add back to main form edit/add movie/member
 
 #### 09/10/21
 * update mechanics to global state
@@ -30,4 +33,4 @@
 * finish server
 
 ### TODO 🔥
-* add edit/delete movie member
+* some style

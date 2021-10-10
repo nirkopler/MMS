@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import useGlobalState from '../GlobalState';
+import {useHistory} from 'react-router';
 
 const AddMember = () => {
+    const history = useHistory();
     const [membersData, setMembersData] = useGlobalState('membersData')
     const [addMemberData, setAddMemberData] = useState({
         full_name: null,
@@ -16,6 +18,7 @@ const AddMember = () => {
             const addedMember = await axios.post('http://localhost:8000/api/members', addMemberData)
             setMembersData([...membersData, addedMember.data])
             console.log( `member ${addedMember.data.full_name} added!`)
+            history.push('/main/subscriptions');
         } catch(err) {
             alert('server error try later')
             console.error(err);
@@ -24,7 +27,7 @@ const AddMember = () => {
 
     return (
         <div>
-            <h1>Add Movie</h1>
+            <h1>Add Member</h1>
             <form onSubmit={(e) => {handleSubmit(e)}} style={{
                 display: 'flex',
                 flexDirection: 'column'

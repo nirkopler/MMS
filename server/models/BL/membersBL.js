@@ -1,4 +1,5 @@
 const members = require('../Models/membersModel');
+const subscriptions = require('../Models/subscriptionsModel');
 
 // GET All
 exports.getAllMembers = () => {

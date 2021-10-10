@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import useGlobalState from '../GlobalState';
-import { useParams } from 'react-router';
+import { useParams, useHistory } from 'react-router';
 
 const EditMovie = () => {
+    const history = useHistory();
     const { movieId } = useParams();
-    const [moviesData, setMoviesData] = useGlobalState('moviesData')
     const [editMovieData, setEditMovieData] = useState({
         name: null,
         geners: null,
@@ -16,8 +15,9 @@ const EditMovie = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         try {
-            const editedMovie = await axios.put(`http://localhost:8000/api/movies/${movieId}`, editMovieData)
-            console.log( `movie ${editedMovie.data.name} edited!`)
+            const editedMovie = await axios.put(`http://localhost:8000/api/movies/${movieId}`, editMovieData);
+            console.log( `movie ${editMovieData.name} edited!`)
+            history.push('/main/movies');
         } catch(err) {
             alert('server error try later')
             console.error(err);

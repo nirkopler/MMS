@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import useGlobalState from '../GlobalState'
+import { useHistory } from "react-router";
 
 
 const MemberBox = ({ member, subscriptions }) => {
+    const history = useHistory();
     const [showAddSubscriptions, setShowAddSubscriptions] = useState(false);
     const [subscribeToMovieData, setSubscribeToMovieData] = useState({
         movie_id: null,
@@ -12,6 +14,7 @@ const MemberBox = ({ member, subscriptions }) => {
     })
     const [moviesData, setMoviesData] = useGlobalState('moviesData');
     const [subscriptionsData, setSubscriptionsData] = useGlobalState('subscriptionsData');
+    const [membersData, setMembersData] = useGlobalState('membersData');
 
     const subscriptionsList = (
         <ul style={{border:'1px solid grey'}}>
@@ -34,6 +37,21 @@ const MemberBox = ({ member, subscriptions }) => {
         }
     }
 
+    const handleEditMemberBtn = (memberId) => {
+        history.push(`/main/subscriptions/editMember/${memberId}`);
+    }
+
+    const handleDeleteMemberBtn = async(memberId) => {
+        try {
+            await axios.delete(`http://localhost:8000/api/members/${memberId}`)
+            setMembersData(membersData.filter((member) => member._id !== memberId ))
+            console.log( `member ${memberId} deleted!`)
+        } catch(err) {
+            alert('server error try later')
+            console.error(err);
+        }
+    }
+
     return (
         <div style={{
             margin: "10px",
@@ -45,6 +63,8 @@ const MemberBox = ({ member, subscriptions }) => {
             <h4>{member.full_name}</h4>
             <h4>{member.email}</h4>
             <h4>{member.city}</h4>
+            <input type='button' value='Edit' onClick={() => handleEditMemberBtn(member._id)} />
+            <input type='button' value='Delete' onClick={() => handleDeleteMemberBtn(member._id)} />
             {showAddSubscriptions && <div>
                     <form onSubmit={(e) => handleSubmitSubscribe(e)}>
                         <span>Movie: </span>
@@ -81,7 +101,7 @@ const AllMembers = () => {
 
     return (
         <div className='movies-main-container'>
-            <h1>Members Main Page</h1>
+            <h1>All Members Page</h1>
             <div className='movies-main-switch-container'>
                 {
                     membersData.map( member => {
