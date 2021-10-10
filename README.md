@@ -6,6 +6,7 @@
 * add edit movie / member
 * add delete movie / member
 * add back to main form edit/add movie/member
+* add username display on top
 
 #### 09/10/21
 * update mechanics to global state

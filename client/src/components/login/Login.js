@@ -2,8 +2,10 @@ import styles from './login.module.css'
 import React, { useState } from "react";
 import axios from 'axios';
 import { useHistory } from 'react-router';
+import useGlobalState from '../GlobalState';
 
 const Login = () => {
+    const [username, setUsername] = useGlobalState('username')
     const [formData, setFormData] = useState({username: null, password: null})
     const [logErrorMessage, setLogErrorMessage] = useState("")
     const history = useHistory();
@@ -17,6 +19,7 @@ const Login = () => {
             if(loginAttempt.success) {
                 // TODO:: add globa state validation
                 // go to main
+                setUsername(formData.username);
                 history.push('/main/movies');
             } else {
                 setLogErrorMessage(loginAttempt.message);

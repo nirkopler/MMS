@@ -3,7 +3,8 @@ import { createGlobalState } from 'react-hooks-global-state';
 const initialState = {
     moviesData: [],
     membersData: [],
-    subscriptionsData: []
+    subscriptionsData: [],
+    username: ''
 };
 
 const { useGlobalState } = createGlobalState(initialState);
