@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import useGlobalState from '../GlobalState';
 
 const AddMember = () => {
+    const [membersData, setMembersData] = useGlobalState('membersData')
     const [addMemberData, setAddMemberData] = useState({
         full_name: null,
         email: null,
@@ -10,8 +12,14 @@ const AddMember = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        await axios.post('http://localhost:8000/api/members', addMemberData)
-        console.log( `member ${addMemberData.full_name} added!`)
+        try {
+            const addedMember = await axios.post('http://localhost:8000/api/members', addMemberData)
+            setMembersData([...membersData, addedMember.data])
+            console.log( `member ${addedMember.data.full_name} added!`)
+        } catch(err) {
+            alert('server error try later')
+            console.error(err);
+        }
     }
 
     return (

@@ -4,11 +4,11 @@ import axios from 'axios';
 import useGlobalState from '../../GlobalState'
 
 const MovieBox = ({ movie, subscriptions }) => {
-
+    const [membersData, setMembersData] = useGlobalState('membersData')
     const subscriptionsList = (
         <ul>
             {subscriptions.map(s => {
-                return <li>{s.member_id} {s.date}</li>
+                return <li>{membersData.find(member => member._id === s.member_id).full_name} {s.date}</li>
             })}
         </ul>
     )
