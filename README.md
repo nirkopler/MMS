@@ -1,6 +1,9 @@
 # MMS - Movie Management System
 
 ### Progress 💪
+#### 10/10/21
+* finish add and view app func with globalState
+
 #### 09/10/21
 * update mechanics to global state
 
@@ -28,5 +31,3 @@
 
 ### TODO 🔥
 * add edit/delete movie member
-* add subscribe to movie in each member comp
-* clean useGlobalState tests 

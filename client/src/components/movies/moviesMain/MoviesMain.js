@@ -4,6 +4,7 @@ import { Switch, Route, Link} from 'react-router-dom'
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import AllMovies from '../allMovies/AllMovies';
 import AddMovie from '../AddMovie';
+import EditMovie from '../EditMovie';
 
 const MoviesMain = () => {
     const { path, url} = useRouteMatch();
@@ -27,6 +28,9 @@ const MoviesMain = () => {
                     </Route>
                     <Route path={`${path}/addMovie`}>
                         <AddMovie />
+                    </Route>
+                    <Route path={`${path}/editMovie/:movieId`}>
+                        <EditMovie />
                     </Route>
                 </Switch>
             </div>

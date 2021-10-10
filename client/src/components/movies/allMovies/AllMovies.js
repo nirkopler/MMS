@@ -2,18 +2,22 @@ import './allMovies.css'
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import useGlobalState from '../../GlobalState'
+import { useHistory } from 'react-router';
 
 const MovieBox = ({ movie, subscriptions }) => {
-    const [membersData, setMembersData] = useGlobalState('membersData')
+    const history = useHistory();
+    const [membersData, setMembersData] = useGlobalState('membersData');
     const subscriptionsList = (
         <ul>
             {subscriptions.map(s => {
-                return <li>{membersData.find(member => member._id === s.member_id).full_name} {s.date}</li>
+                return <li>{membersData.find(member => member._id === s.member_id)?.full_name} {s.date}</li>
             })}
         </ul>
     )
 
-    console.log(movie)
+    const handleEditMovieBtn = (movieId) => {
+        history.push(`/main/movies/editMovie/${movieId}`);
+    }
 
     return (
         <div style={{
@@ -25,6 +29,7 @@ const MovieBox = ({ movie, subscriptions }) => {
             <h4>{movie.geners}</h4>
             <img src={movie.image} alt={movie._id} />
             {subscriptionsList}
+            <input type='button' value='Edit' onClick={() => handleEditMovieBtn(movie._id)} />
         </div>
     )
 }
@@ -32,6 +37,7 @@ const MovieBox = ({ movie, subscriptions }) => {
 const AllMovies = () => {
     const [moviesData, setMoviesData] = useGlobalState('moviesData')
     const [subscriptionsData, setSubscriptionsData] = useGlobalState('subscriptionsData');
+    const [membersData, setMembersData] = useGlobalState('membersData');
 
     useEffect(() => {
         const getAllMoviesData = async() => {
@@ -44,8 +50,14 @@ const AllMovies = () => {
             setSubscriptionsData(subscriptionsData.data)
         }
 
+        const getAllMembersData = async() => {
+            const membersData = await axios.get("http://localhost:8000/api/members");
+            setMembersData(membersData.data);
+        }
+
         getAllMoviesData();
         getAllSubscriptionsData();
+        getAllMembersData();
     }, [])
 
     return (
