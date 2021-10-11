@@ -54,6 +54,7 @@ const EditMovie = () => {
                 <input type='text' value={editMovieData.image} placeholder='image' onChange={(e) => setEditMovieData({...editMovieData, image: e.target.value})} />
 
                 <input type='submit' value='Edit Movie' />
+                <input type='button' value='cancel' onClick={() => history.push('/main/movies')} />
             </form>
         </div>
     )

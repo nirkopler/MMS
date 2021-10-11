@@ -43,6 +43,7 @@ const AddMember = () => {
                 <input type='text' placeholder='city' onChange={(e) => setAddMemberData({...addMemberData, city: e.target.value})} />
 
                 <input type='submit' value='Add Member' />
+                <input type='button' value='cancel' onClick={() => history.push('/main/subscriptions')} />
             </form>
         </div>
     )

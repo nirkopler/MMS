@@ -48,6 +48,7 @@ const AddMovie = () => {
                 <input type='text' placeholder='image' onChange={(e) => setAddMovieData({...addMovieData, image: e.target.value})} />
 
                 <input type='submit' value='Add Movie' />
+                <input type='button' value='cancel' onClick={() => history.push('/main/movies')} />
             </form>
         </div>
     )

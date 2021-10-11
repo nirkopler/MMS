@@ -51,6 +51,8 @@ const AllMovies = () => {
     const [moviesData, setMoviesData] = useGlobalState('moviesData')
     const [subscriptionsData, setSubscriptionsData] = useGlobalState('subscriptionsData');
     const [membersData, setMembersData] = useGlobalState('membersData');
+    const [searchText, setSearchText] = useState('');
+    const [showSearchRes, setShowSearchRes] = useState('');
 
     useEffect(() => {
         const getAllMoviesData = async() => {
@@ -76,9 +78,20 @@ const AllMovies = () => {
     return (
         <div className='movies-main-container'>
             <h1>All Movies Page</h1>
+            <div>
+                <span>Search Movie: </span>
+                <input type='text' value={searchText} onChange={(e) => setSearchText(e.target.value)} onClick={() => {setShowSearchRes(false); setSearchText('')}} />
+                <input type='button' value='find' onClick={() => setShowSearchRes(true)} />
+            </div>
             <div className='movies-main-switch-container'>
                 {
-                    moviesData.map( movie => {
+                    moviesData.filter(m => {
+                        if(searchText.length == 0 || !showSearchRes) {
+                            return m;
+                        } else if(m.name.toLocaleLowerCase().includes(searchText.toLocaleLowerCase()) && showSearchRes) {
+                            return m;
+                        }
+                    }).map( movie => {
                         const subData = subscriptionsData.filter(s => s.movie_id === movie._id);
                         return <MovieBox movie={movie} subscriptions={subData} key={movie._id} />
                     })

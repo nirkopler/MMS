@@ -1,7 +1,11 @@
 # MMS - Movie Management System
 
 ### Progress 💪
-#### 10/10/21
+#### 11/10/21
+* add search movie
+* add cancel buttons for all pages that need
+
+#### 10/10/21 - finish project
 * finish add and view app func with globalState
 * add edit movie / member
 * add delete movie / member
@@ -35,3 +39,6 @@
 
 ### TODO 🔥
 * some style
+* filter subs to all non subscribed movies
+* add link to member in movielist -> to all members display only the member clicked
+* add link to movie in sublist -> to all movies display only the movie clicked

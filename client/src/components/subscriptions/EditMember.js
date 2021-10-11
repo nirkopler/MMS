@@ -50,6 +50,7 @@ const EditMember = () => {
                 <input type='text' value={editMemberData.city} placeholder='city' onChange={(e) => setEditMemberData({...editMemberData, city: e.target.value})} />
 
                 <input type='submit' value='Edit Member' />
+                <input type='button' value='cancel' onClick={() => history.push('/main/subscriptions')} />
             </form>
         </div>
     )
