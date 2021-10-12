@@ -15,11 +15,16 @@ const MemberBox = ({ member, subscriptions }) => {
     const [moviesData, setMoviesData] = useGlobalState('moviesData');
     const [subscriptionsData, setSubscriptionsData] = useGlobalState('subscriptionsData');
     const [membersData, setMembersData] = useGlobalState('membersData');
+    const subscribedMovies = subscriptions.map(s => s.movie_id);
+
+    const handleClickOnMovieName = (movieId) => {
+        history.push(`/main/movies/movie/${movieId}`);
+    }
 
     const subscriptionsList = (
         <ul style={{border:'1px solid grey'}}>
             {subscriptions.map(s => {
-                return <li>{moviesData.find(movie => movie._id === s.movie_id)?.name} - {s.date}</li>
+                return <li onClick={() => handleClickOnMovieName(s.movie_id)} >{moviesData.find(movie => movie._id === s.movie_id)?.name} - {s.date}</li>
             })}
         </ul>
     )
@@ -60,16 +65,18 @@ const MemberBox = ({ member, subscriptions }) => {
         }}>
 
             <input type='button' value='add subscription' onClick={() => {setShowAddSubscriptions(!showAddSubscriptions); }} />
-            <h4>{member.full_name}</h4>
-            <h4>{member.email}</h4>
-            <h4>{member.city}</h4>
+            <h4>Full Name: {member.full_name}</h4>
+            <h4>Email: {member.email}</h4>
+            <h4>City: {member.city}</h4>
             <input type='button' value='Edit' onClick={() => handleEditMemberBtn(member._id)} />
             <input type='button' value='Delete' onClick={() => handleDeleteMemberBtn(member._id)} />
             {showAddSubscriptions && <div>
                     <form onSubmit={(e) => handleSubmitSubscribe(e)}>
                         <span>Movie: </span>
                         <select onChange={(e) => setSubscribeToMovieData({...subscribeToMovieData, movie_id: e.target.value})}>
-                            {moviesData.map((movie) => {return <option key={`sel-mov-${movie._id}`} value={movie._id}>{movie.name}</option>})}
+                            {moviesData.filter(m => !(subscribedMovies.includes(m._id))).map((movie) => {
+                                return <option key={`sel-mov-${movie._id}`} value={movie._id}>{movie.name}</option>
+                            })}
                         </select>
                         <input type='date' onChange={(e) => setSubscribeToMovieData({...subscribeToMovieData, date: e.target.value})} />
                         <input type='submit' value='subscribe' />

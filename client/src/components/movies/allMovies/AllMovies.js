@@ -11,10 +11,14 @@ const MovieBox = ({ movie, subscriptions }) => {
     const subscriptionsList = (
         <ul>
             {subscriptions.map(s => {
-                return <li>{membersData.find(member => member._id === s.member_id)?.full_name} {s.date}</li>
+                return <li onClick={() => handleClickOnMemberName(s.member_id)} >{membersData.find(member => member._id === s.member_id)?.full_name} {s.date}</li>
             })}
         </ul>
     )
+
+    const handleClickOnMemberName = (memberId) => {
+        history.push(`/main/subscriptions/member/${memberId}`);
+    }
 
     const handleEditMovieBtn = (movieId) => {
         history.push(`/main/movies/editMovie/${movieId}`);
@@ -37,8 +41,8 @@ const MovieBox = ({ movie, subscriptions }) => {
             padding: '5px',
             border: '1px solid blue'
         }}>
-            <h4>{movie.name} {movie.year_premiered}</h4>
-            <h4>{movie.geners}</h4>
+            <h4>Movie: {movie.name} | Year: {movie.year_premiered}</h4>
+            <h4>Geners: {movie.geners}</h4>
             <img src={movie.image} alt={movie._id} />
             {subscriptionsList}
             <input type='button' value='Edit' onClick={() => handleEditMovieBtn(movie._id)} />

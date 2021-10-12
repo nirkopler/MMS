@@ -1,6 +1,12 @@
 # MMS - Movie Management System
+## MERN Stack Project
 
 ### Progress 💪
+#### 12/10/21 - DONE 🔥
+* add on click movie redirect to all movie with only selected movie
+* add on click member redirect to all member with only selected member
+* fix movies to subscribe -> show only not subscribed movies
+
 #### 11/10/21
 * add search movie
 * add cancel buttons for all pages that need
@@ -38,7 +44,4 @@
 * finish server
 
 ### TODO 🔥
-* some style
-* filter subs to all non subscribed movies
-* add link to member in movielist -> to all members display only the member clicked
-* add link to movie in sublist -> to all movies display only the movie clicked
+* some style :)
